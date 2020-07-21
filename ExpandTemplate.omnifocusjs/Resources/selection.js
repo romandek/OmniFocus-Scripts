@@ -1,7 +1,7 @@
 var _ = (function() {
     var action = new PlugIn.Action((selection, sender) => {
 
-        var lib = PlugIn.find("com.PaulSidnell.Template").library("lib");
+        var lib = PlugIn.find("com.romandek.Template").library("lib");
 
         var template = selection.projects[0];
 

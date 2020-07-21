@@ -1,6 +1,11 @@
 var _ = function() {
 	var lib = new PlugIn.Library(new Version("0.1"));
 
+	const DateKind = {
+		DEFER: 1,
+		DUE: 2
+	}
+
 	// Find variables in text (thanks to Thomas Kern)
 	lib.findVariables = (text, variablesFound) => {
 		substrings = text.match(/\$\{[^\}]*\}/gm);
@@ -40,7 +45,7 @@ var _ = function() {
 
 	// Replace any variables in the task title or note
 	lib.replaceVariableInTask = (task, variables) => {
-		console.log('Processing Task ' + task.name);
+		//console.log('Processing Task ' + task.name);
 		task.name = lib.replaceVariables(task.name, variables);
 		task.note = lib.replaceVariables(task.note, variables);
 	};
@@ -69,6 +74,82 @@ var _ = function() {
 		}
 	}
 
+	lib.setDefaultTime = (kind, date) => {
+
+		var result = date;
+
+		switch(kind) {
+			case DateKind.DEFER:
+				var time = settings.objectForKey("DefaultStartTime").split(":").map(e => { return parseInt(e)});
+				break;
+
+			case DateKind.DUE:
+				var time = settings.objectForKey("DefaultDueTime").split(":").map(e => { return parseInt(e)});
+				break;
+		}
+
+		result.setHours(time[0], time[1], time[2]);
+
+		return result;
+	}
+
+	lib.dateDelta = (date1, date2) => {
+		let ret = 0;
+
+		let msPerDay = 8.64e7;
+
+		// Copy dates so don't mess them up
+		let d1 = date1;
+		let d2 = date2;
+
+		if (d1 != null || d2 != null) {
+			// Set to noon - avoid DST errors
+			d1.setHours(12,0,0);
+			d2.setHours(12,0,0);
+
+			ret = Math.round( (d2 - d1) / msPerDay );
+		}
+
+		return ret;
+	}
+
+	// Adjust dates from template
+	lib.adjustDates = (_task, _deadline, _origDue) => {
+
+		var newDueDate   = new Date(_deadline);
+		var newDeferDate = new Date(); 
+
+		if (_task.dueDate != null) {
+
+			var origDueDelta   = lib.dateDelta(_task.dueDate, _origDue);
+			var origDeferDelta = lib.dateDelta(_task.deferDate, _task.dueDate);
+
+			if (origDueDelta !== 0) {
+				newDueDate.setDate(newDueDate.getDate() - origDueDelta);
+			}
+
+			if (origDeferDelta !== 0) {
+				newDeferDate.setDate(newDueDate.getDate() - origDeferDelta);
+			}
+
+			_task.deferDate = lib.setDefaultTime(DateKind.DEFER, newDeferDate);
+			_task.dueDate = lib.setDefaultTime(DateKind.DUE, newDueDate);
+		} 
+		else if (_task.deferDate != null) {
+
+			var origDeferDelta = lib.dateDelta(_task.deferDate, _origDue);
+
+			newDeferDate = new Date(_task.effectiveDueDate);
+
+			if (origDeferDelta !== 0)
+			{
+				newDeferDate.setDate(newDeferDate.getDate() - origDeferDelta);	
+			}	
+
+			_task.deferDate = lib.setDefaultTime(DateKind.DEFER, newDeferDate);	
+		}
+	}
+
 	// Process the template
 	lib.expandTemplate = (template, form) => {
 		console.log('Processing Template ' + template.name);
@@ -83,6 +164,13 @@ var _ = function() {
 			lib.replaceVariableInTask(task, form.values);
 		});
 		
+		let origProjDue = project.dueDate;
+
+		// Update task dates 
+		project.task.apply((task) => {
+			lib.adjustDates(task, form.values['deadline'], origProjDue);
+		});
+
 		// Open the new project
 		var url = URL.fromString('omnifocus:///task/' + encodeURIComponent(project.name));
 		url.call(reply => {});
@@ -96,6 +184,22 @@ var _ = function() {
 
 		// Open a form to collect values for variables in the template
 		var inputForm = new Form();
+
+		var dc = new DateComponents(); dc.day = 7;
+        var cal = Calendar.current;
+        var time = settings.objectForKey("DefaultDueTime").split(":").map(e => { return parseInt(e)})
+        var defaultDeadline = cal.dateByAddingDateComponents(new Date(), dc);        
+            defaultDeadline = lib.setDefaultTime(DateKind.DUE, defaultDeadline);
+
+
+        var deadlineField = new Form.Field.Date(
+            "deadline",
+            "Deadline",
+            defaultDeadline/*,
+            new Formatter.Date.withStyle(Formatter.Date.Style.Short)*/
+        )
+
+        inputForm.addField(deadlineField);
 
 		for (var i = 0; i < templateVariables.length; i++) {
 			var variable = templateVariables[i];

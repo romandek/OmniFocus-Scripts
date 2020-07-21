@@ -1,9 +1,9 @@
 {
 	"defaultLocale": "en",
-	"identifier": "com.PaulSidnell.Template",
-	"author": "Paul Sidnell",
-	"description": "Expand a Template Project",
-	"version": "1.0",
+	"identifier": "com.romandek.Template",
+	"author": "Roman Dek",
+	"description": "Expand a Template Project (built upon Paul Sidnell's script)",
+	"version": "1.5",
 	"actions": [
 		{ "image":"icon.png", "identifier": "choose" },
 		{ "image":"icon.png", "identifier": "selection" }
