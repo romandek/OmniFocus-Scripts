@@ -131,6 +131,9 @@ var _ = function() {
 			if (origDeferDelta !== 0) {
 				newDeferDate.setDate(newDueDate.getDate() - origDeferDelta);
 			}
+			else {
+				newDeferDate.setDate(newDueDate.getDate());
+			}
 
 			_task.deferDate = lib.setDefaultTime(DateKind.DEFER, newDeferDate);
 			_task.dueDate = lib.setDefaultTime(DateKind.DUE, newDueDate);
