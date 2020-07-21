@@ -1,0 +1,71 @@
+/*{
+	"type": "action",
+	"targets": ["omnifocus"],
+	"author": "Otto Automator",
+	"identifier": "com.omni-automation.of.plug-in-collection",
+	"version": "1.5",
+	"description": "This action will open the chosen page from the OmniFocus section of the Omni Automation website.",
+	"label": "Omni Automation Website",
+	"shortLabel": "Show Website"
+}*/
+(() => {
+	var action = new PlugIn.Action(function(selection, sender){
+		// attempt to retrieve listing JSON file from website.
+
+		var urlStr = "https://omni-automation.com/omnifocus/listings.json"
+		URL.fromString(urlStr).fetch(function(data){
+			var listings = JSON.parse(data.toString())
+			console.log(JSON.stringify(listings))
+			
+			var menuItems = new Array()
+			var menuURLs = new Array()
+			listings.forEach(entry => {
+				menuItems.push(entry["title"])
+				menuURLs.push(entry["url"])
+			})
+			var menuIndexes = new Array()
+			menuItems.forEach((item,index) => {
+				menuIndexes.push(index)
+			})
+			
+			var menuElement = new Form.Field.Option(
+				"menuElement", 
+				null, 
+				menuIndexes, 
+				menuItems, 
+				0
+			)
+			
+			var inputForm = new Form()
+			inputForm.addField(menuElement)
+			var formPrompt = "Choose the OmniFocus webpage to display:"
+			var buttonTitle = "Continue"
+			var formPromise = inputForm.show(formPrompt,buttonTitle)
+
+			inputForm.validate = function(formObject){
+				return true
+			}
+
+			formPromise.then(function(formObject){
+				var menuIndex = formObject.values['menuElement']
+				urlStr = "https://omni-automation.com/" + menuURLs[menuIndex]
+				URL.fromString(urlStr).open()
+			})
+
+			formPromise.catch(function(err){
+				console.error("form cancelled", err.message)
+			})
+		}, function(err){
+			// problem with connection
+			new Alert("Connection Error",err.message).show()
+		})			
+	});
+
+	action.validate = function(selection, sender){
+		// validation code
+		// selection options: tasks, projects, folders, tags, allObjects
+		return true
+	};
+	
+	return action;
+})();

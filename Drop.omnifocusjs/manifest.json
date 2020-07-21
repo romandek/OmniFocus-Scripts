@@ -1,0 +1,11 @@
+{
+    "author": "Roman Dek",
+    "identifier": "com.romandek.of.drop",
+    "version": "1.0",
+    "description": "Action to drop the selected tasks. Tasks with repeat rules only drop the current iteration.",
+    "actions": [{
+        "image": "drop.png",
+        "identifier": "drop"
+    }],
+    "defaultLocale": "en"
+}

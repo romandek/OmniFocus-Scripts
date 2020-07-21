@@ -1,0 +1,27 @@
+{
+    "author": "Roman Dek",
+    "identifier": "com.romandek.of.dateactions",
+    "version": "1.0",
+    "description": "A pack of date actions",
+    "actions": [{
+        "image": "deferDays.png",
+        "identifier": "deferDays"
+    },
+    {
+        "image": "deferBeforeDue.png",
+        "identifier": "deferBeforeDue"
+    },
+    {
+        "image": "dueTomorrow.png",
+        "identifier": "dueTomorrow"
+    },
+    {
+        "image": "due.png",
+        "identifier": "due"
+    }, 
+    {
+        "image": "reviewDateAtDefer.png",
+        "identifier": "reviewDateAtDefer"
+    }],
+    "defaultLocale": "en"
+}

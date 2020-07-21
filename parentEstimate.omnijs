@@ -1,0 +1,29 @@
+/*{
+	"type": "action",
+	"targets": ["omnifocus"],
+	"author": "Roman Dek",
+	"identifier": "com.romandek.of.sumEstimates",
+	"version": "1.0",
+	"description": "This action will assign sum of estimated times of the children of the selected task to the selected task",
+	"label": "Sum estimates",
+	"shortLabel": "Sum estimates"
+}*/
+var _ = function(){
+	var action = new PlugIn.Action(function(selection, sender) {
+		var sum = 0;
+		selection.tasks[0].children.forEach(task => {
+			sum = sum + task.estimatedMinutes
+		})
+		selection.tasks[0].estimatedMinutes = sum
+	});
+
+	action.validate = function(selection, sender) {
+        // validation code
+        // selection options: tasks, projects, folders, tags
+        return (selection.tasks.length === 1) && (selection.tasks[0].hasChildren)
+    };
+    
+    return action;
+}()
+
+_;

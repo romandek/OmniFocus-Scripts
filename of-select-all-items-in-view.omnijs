@@ -1,0 +1,61 @@
+/*{
+	"type": "action",
+	"targets": ["omnifocus"],
+	"author": "Otto Automator",
+	"identifier": "com.omni-automation.of.select-all-visible-items",
+	"version": "1.0",
+	"description": "This action will select all of the tasks and or projects in the current content view. (macOS only)",
+	"label": "Select Items in View",
+	"shortLabel": "Select Items"
+}*/
+(() => {
+	var action = new PlugIn.Action(function(selection, sender){
+		// action code
+		// selection options: tasks, projects, folders, tags
+		var tasksCheckbox = new Form.Field.Checkbox(
+			"shouldSelectTasks",
+			"Tasks",
+			false
+		)
+		var projectsCheckbox = new Form.Field.Checkbox(
+			"shouldSelectProjects",
+			"Projects",
+			false
+		)
+		var inputForm = new Form()
+		inputForm.addField(tasksCheckbox)
+		inputForm.addField(projectsCheckbox)
+		var formPromise = inputForm.show("Select in content view:","Continue")
+		
+		inputForm.validate = function(formObject){
+			var shouldSelectTasks = formObject.values['shouldSelectTasks']
+			var shouldSelectProjects = formObject.values['shouldSelectProjects']
+			return ((shouldSelectTasks || shouldSelectProjects) ? true:false)
+		}
+		
+		formPromise.then(function(formObject){
+			var shouldSelectTasks = formObject.values['shouldSelectTasks']
+			var shouldSelectProjects = formObject.values['shouldSelectProjects']
+			var items = new Array()
+			document.windows[0].content.rootNode.apply((item) => {
+				if (shouldSelectTasks && item.object instanceof Task) {
+					items.push(item);
+				}
+				if (shouldSelectProjects && item.object instanceof Project) {
+					items.push(item);
+				}
+			})
+			if(items != []){
+				document.windows[0].content.select(items)
+			}
+		})
+	});
+
+	action.validate = function(selection, sender){
+		// validation code
+		// selection options: tasks, projects, folders, tags
+		return (Device.current.mac)
+	};
+	
+	return action;
+})();

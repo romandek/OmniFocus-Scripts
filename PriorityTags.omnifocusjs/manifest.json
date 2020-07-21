@@ -1,0 +1,27 @@
+{
+    "author": "Roman Dek",
+    "identifier": "com.romandek.of.priorities",
+    "version": "1.0",
+    "description": "A pack of priority actions",
+    "actions": [{
+        "image": "highlight.png",
+        "identifier": "highlight"
+    },
+    {
+        "image": "one.png",
+        "identifier": "p1"
+    },
+    {
+        "image": "two.png",
+        "identifier": "p2"
+    },
+    {
+        "image": "three.png",
+        "identifier": "p3"
+    },
+    {
+        "image": "four.png",
+        "identifier": "p4"
+    }],
+    "defaultLocale": "en"
+}
