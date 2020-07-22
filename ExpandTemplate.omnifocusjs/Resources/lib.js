@@ -102,7 +102,7 @@ var _ = function() {
 		let d1 = date1;
 		let d2 = date2;
 
-		if (d1 != null || d2 != null) {
+		if (d1 != null && d2 != null) {
 			// Set to noon - avoid DST errors
 			d1.setHours(12,0,0);
 			d2.setHours(12,0,0);
@@ -111,6 +111,18 @@ var _ = function() {
 		}
 
 		return ret;
+	}
+
+	lib.dateShift = (date, delta = 0) => {
+		let ret = date; 
+
+		let msPerDay = 8.64e7;
+
+		if (delta !== 0){
+			ret = new Date(date - (delta * msPerDay));
+		}
+
+		return ret; 
 	}
 
 	// Adjust dates from template
@@ -125,14 +137,14 @@ var _ = function() {
 			var origDeferDelta = lib.dateDelta(_task.deferDate, _task.dueDate);
 
 			if (origDueDelta !== 0) {
-				newDueDate.setDate(newDueDate.getDate() - origDueDelta);
+				newDueDate = lib.dateShift(newDueDate, origDueDelta);
 			}
 
 			if (origDeferDelta !== 0) {
-				newDeferDate.setDate(newDueDate.getDate() - origDeferDelta);
+				newDeferDate = lib.dateShift(newDueDate, origDeferDelta);
 			}
 			else {
-				newDeferDate.setDate(newDueDate.getDate());
+				newDeferDate = lib.dateShift(newDueDate);
 			}
 
 			_task.deferDate = lib.setDefaultTime(DateKind.DEFER, newDeferDate);
@@ -146,7 +158,7 @@ var _ = function() {
 
 			if (origDeferDelta !== 0)
 			{
-				newDeferDate.setDate(newDeferDate.getDate() - origDeferDelta);	
+				newDeferDate = lib.dateShift(newDeferDate, origDeferDelta);	
 			}	
 
 			_task.deferDate = lib.setDefaultTime(DateKind.DEFER, newDeferDate);	
