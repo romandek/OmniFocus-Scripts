@@ -13,7 +13,7 @@
 	let action = new PlugIn.Action(function(selection) {
 		let duplicatedTasks = new Array()
 		selection.tasks.forEach(function(task){
-			insertionLocation = task.containingProject
+			insertionLocation = task.after
 			if(insertionLocation === null){insertionLocation = inbox.ending}
 			dupTasks = duplicateTasks([task], insertionLocation);
 			//dupTasks[0].name = "Waiting on reply: " + task.name;
