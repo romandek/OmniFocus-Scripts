@@ -1,14 +1,3 @@
-/*{
-	"author": "Roman Dek",
-	"targets": ["omnifocus"],
-	"type": "action",
-	"identifier": "com.romandek.omnifocus.complete-and-schedule-next",
-	"version": "1.0",
-	"description": "Mark the currently selected task as complete and add a new task.",
-	"label": "Complete and Schedule Next",
-	"mediumLabel": "Complete and Schedule Next",
-	"paletteLabel": "Complete and Schedule Next",
-}*/
 (() => {
 	let action = new PlugIn.Action(function(selection) {
 		let duplicatedTasks = new Array()
