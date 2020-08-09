@@ -186,6 +186,8 @@ var _ = function() {
 			lib.adjustDates(task, form.values['deadline'], origProjDue);
 		});
 
+		project.removeTags([tagNamed('Template')]); 
+
 		// Open the new project
 		var url = URL.fromString('omnifocus:///task/' + encodeURIComponent(project.name));
 		url.call(reply => {});
