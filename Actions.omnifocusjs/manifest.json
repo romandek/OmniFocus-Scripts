@@ -10,6 +10,10 @@
     {
         "image": "complete_schedule.png",
         "identifier": "complete_schedule"
+    },
+    {
+        "image": "duplicate_tasks.png",
+        "identifier": "duplicate_tasks"
     }],
     "defaultLocale": "en"
 }
