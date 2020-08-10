@@ -8,6 +8,10 @@
         "identifier": "deferDays"
     },
     {
+        "image": "deferTomorrow.png",
+        "identifier": "deferTomorrow"
+    },
+    {
         "image": "deferBeforeDue.png",
         "identifier": "deferBeforeDue"
     },
