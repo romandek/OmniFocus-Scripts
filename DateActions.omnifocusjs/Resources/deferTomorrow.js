@@ -76,6 +76,8 @@ var _ = function(){
                 }
             });
         }
+
+        cleanUp();
     });
 
     action.validate = selection => {
