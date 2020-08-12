@@ -34,7 +34,7 @@
 
 		var qualifiedTasks = flattenedTasks.filter(task => task.effectiveCompletedDate == null && task.effectiveDropDate == null && task.effectiveDueDate != null &&
 														   task.containingProject != null && task.containingProject.tags.byName("Template") == null &&
-		   												   (task.tags.byName(p1) != null || task.tags.byName(p2) != null || task.tags.byName(p3) != null));
+		   												   (/*task.tags.byName(p1) != null || //we don't need this/*/ task.tags.byName(p2) != null || task.tags.byName(p3) != null));
 
 		var t1 = new Date().getTime()
 		console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.")
