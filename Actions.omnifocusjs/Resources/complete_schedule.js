@@ -26,7 +26,7 @@
 			}
 
 			// set new defer date
-			var deferDate = task.effectiveDeferDate || new Date();
+			var deferDate = new Date();
 
 			deferDate.setDate(1 + deferDate.getDate());
 
