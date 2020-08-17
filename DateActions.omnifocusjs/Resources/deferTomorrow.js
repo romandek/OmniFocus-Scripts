@@ -14,10 +14,6 @@ var _ = function(){
 
                 let taskDate = new Date();
 
-                if (taskDate == null) {
-                    taskDate = new Date();
-                }
-
                 taskDate.setDate(days + taskDate.getDate());
 
                 taskDate.setHours(time[0]);
@@ -39,7 +35,6 @@ var _ = function(){
 
                     console.log("Task’s “" + task + "” proposed defer date is after the task's due date. Defer date set to morning default defer time on the due date");
                 }
-                
             });
         } 
 
@@ -48,10 +43,6 @@ var _ = function(){
             selection.projects.forEach((proj) => {
 
                 let projDate = new Date();
-
-                if (projDate == null) {
-                    projDate = new Date();
-                }
 
                 projDate.setDate(days + projDate.getDate());
 
