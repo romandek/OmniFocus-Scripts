@@ -1,0 +1,44 @@
+/*{
+	"type": "action",
+	"targets": ["omnifocus"],
+	"author": "Roman Dek",
+	"identifier": "com.romandek.of.expense-tag",
+	"version": "1.0",
+	"description": "This action will Add the expense tag to selected tasks.",
+	"label": "Tag Expense",
+	"shortLabel": "Tag Expense"
+}*/
+(() => {
+
+	const finance = "Finance"
+
+	const expense = "Expense"
+
+	var action = new PlugIn.Action(function(selection, sender){
+		// action code
+
+    	let financeTag = tagNamed(finance)
+        let expenseTag = financeTag.tagNamed(expense)
+
+        tagsArray = new Array()
+        tagsArray.push(expenseTag)
+
+		var items = new Array()
+
+		if(selection.tasks[0]){
+            selection.tasks.forEach(task => {
+            	task.addTag(expenseTag)
+            })
+        }
+	});
+
+	action.validate = function(selection, sender){
+		// validation code
+		// selection options: tasks, projects, folders, tags
+		return selection.tasks
+        .filter(task => task.tags.byName(expense) == null)
+        .length > 0 
+	};
+	
+	return action;
+})();

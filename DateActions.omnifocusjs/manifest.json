@@ -26,6 +26,10 @@
     {
         "image": "reviewDateAtDefer.png",
         "identifier": "reviewDateAtDefer"
+    },
+    {
+        "image": "clearDates.png",
+        "identifier": "clearDates"
     }],
     "defaultLocale": "en"
 }

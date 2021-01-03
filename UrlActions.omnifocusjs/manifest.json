@@ -3,9 +3,11 @@
     "identifier": "com.romandek.of.urlactions",
     "version": "1.0",
     "description": "A pack of url actions",
-    "actions": [{
-        "image": "openLinks.png",
-        "identifier": "openLinks"
-    }],
+    "actions": [
+    	{
+        	"image": "openLinks.png",
+        	"identifier": "openLinks"
+    	}
+],
     "defaultLocale": "en"
 }

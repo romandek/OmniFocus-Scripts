@@ -1,0 +1,16 @@
+{
+	"defaultLocale": "en",
+	"identifier": "com.PaulSidnell.Toggle",
+	"author": "Paul Sidnell",
+	"description": "Toggle a folder hierarchy active/on-hold",
+	"version": "1.0",
+	"actions": [
+		{ "image":"icon.png", "identifier": "chooseActivate" },
+		{ "image":"icon.png", "identifier": "chooseOnHold" },
+		{ "image":"icon.png", "identifier": "selectionActivate" },
+		{ "image":"icon.png", "identifier": "selectionOnHold" }
+	],
+	"libraries": [
+		{"identifier": "toggleLib"}
+	]
+}

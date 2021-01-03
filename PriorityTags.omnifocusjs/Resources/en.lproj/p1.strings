@@ -1,4 +1,4 @@
-"label" = "Critical";
-"shortLabel" = "Critical";
-"mediumLabel" = "Critical";
-"longLabel" = "Critical - do right now";
+"label" = "Must do";
+"shortLabel" = "Must do";
+"mediumLabel" = "Must do";
+"longLabel" = "Must do";

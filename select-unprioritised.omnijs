@@ -1,0 +1,54 @@
+/*{
+	"type": "action",
+	"targets": ["omnifocus"],
+	"author": "Roman Dek",
+	"identifier": "com.romandek.of.select-unprioritised",
+	"version": "1.0",
+	"description": "This action will select all of the tasks withou P-tags or SHopping tag. (macOS only)",
+	"label": "Select Unprioritised",
+	"shortLabel": "Select Unprioritised"
+}*/
+(() => {
+	var action = new PlugIn.Action(function(selection, sender){
+		// action code
+		const p = "Priority"
+
+	    const p0 = "Routines"
+	    const p1 = "P1 — Must do"
+	    const p2 = "P2 — Should do"
+	    const p3 = "P3 — Could do"
+	    const p4 = "P4 — Won't do"
+	    const shopping = "Shopping"
+
+    	let pTag = tagNamed(p)
+        let p1Tag = pTag.tagNamed(p1)
+        let p2Tag = pTag.tagNamed(p2)
+        let p3Tag = pTag.tagNamed(p3)
+        let p4Tag = pTag.tagNamed(p4)
+        let shoppingTag = tagNamed(shopping)
+
+        tagsArray = new Array()
+        tagsArray.push(p1Tag, p2Tag, p3Tag, p4Tag, shoppingTag)
+
+		var items = new Array()
+		document.windows[0].content.rootNode.apply((item) => {
+			if (item.object instanceof Task) {
+				if (!item.object.tags.some(r => tagsArray.indexOf(r) >= 0)) {
+					items.push(item)
+				}
+			}
+		})
+
+		if(items != []){
+			document.windows[0].content.select(items)
+		}
+	});
+
+	action.validate = function(selection, sender){
+		// validation code
+		// selection options: tasks, projects, folders, tags
+		return (Device.current.mac)
+	};
+	
+	return action;
+})();

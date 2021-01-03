@@ -4,7 +4,7 @@ var _ = function(){
 
         var inputForm = new Form();
 
-        var dayField = new Form.Field.String("dayField", null, "1", null);
+        var dayField = new Form.Field.String("dayField", null, "7", null);
         var respectDatesCheckbox = new Form.Field.Checkbox(
             "shouldRespectSetDates",
             "Respect task defer date",

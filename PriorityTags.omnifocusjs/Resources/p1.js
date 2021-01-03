@@ -3,10 +3,10 @@ var _ = function(){
 	const p = "Priority"
 
     const p0 = "Routines"
-    const p1 = "P1 — Critical"
-    const p2 = "P2 — Move the needle"
-    const p3 = "P3 — Support"
-    const p4 = "P4 — Maintenance"
+    const p1 = "P1 — Must do"
+    const p2 = "P2 — Should do"
+    const p3 = "P3 — Could do"
+    const p4 = "P4 — Won't do"
 
 	var action = new PlugIn.Action(function(selection){
 
