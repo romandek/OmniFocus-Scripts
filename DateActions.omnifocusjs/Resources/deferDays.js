@@ -39,17 +39,22 @@ var _ = function(){
 
                 selection.tasks.forEach((task) => {
 
-                    let taskDate = shouldRespectSetDates ? task.effectiveDeferDate : (new Date());
+                    if (task.deferDate) {
+                        taskDate = shouldRespectSetDates ? task.effectiveDeferDate : (new Date());
 
-                    if (taskDate == null) {
+                        if (taskDate == null) {
+                            taskDate = new Date();
+                        }
+
+                        taskDate.setHours(task.deferDate.getHours(), task.deferDate.getMinutes());
+                    }
+                    else {
+
                         taskDate = new Date();
+                        taskDate.setHours(time[0], time[1], time[2]);
                     }
 
                     taskDate.setDate(days + taskDate.getDate());
-
-                    taskDate.setHours(time[0]);
-                    taskDate.setMinutes(time[1]);
-                    taskDate.setSeconds(time[2]);
 
                     if (task.effectiveDueDate === null || taskDate <= task.effectiveDueDate) {
                         task.deferDate = taskDate;
@@ -58,9 +63,7 @@ var _ = function(){
 
                         taskDate = task.effectiveDueDate;
 
-                        taskDate.setHours(time[0]);
-                        taskDate.setMinutes(time[1]);
-                        taskDate.setSeconds(time[2]);
+                        taskDate.setHours(time[0], time[1], time[2]);
 
                         task.deferDate = taskDate;
 
@@ -74,17 +77,23 @@ var _ = function(){
 
                 selection.projects.forEach((proj) => {
 
-                    let projDate = shouldRespectSetDates ? proj.effectiveDeferDate : (new Date());
+                    if (proj.deferDate) {
+                        projDate = shouldRespectSetDates ? proj.effectiveDeferDate : (new Date());
 
-                    if (projDate == null) {
+                        if (projDate == null) {
+                            projDate = new Date();
+                        }
+
+                        projDate.setHours(proj.deferDate.getHours(), proj.deferDate.getMinutes());
+                    }
+                    else {
+
                         projDate = new Date();
+                        projDate.setHours(time[0], time[1], time[2]);
                     }
 
                     projDate.setDate(days + projDate.getDate());
 
-                    projDate.setHours(time[0]);
-                    projDate.setMinutes(time[1]);
-                    projDate.setSeconds(time[2]);
 
                     if (proj.effectiveDueDate === null || projDate <= proj.effectiveDueDate) {
                         proj.deferDate = projDate;
@@ -93,9 +102,7 @@ var _ = function(){
 
                         projDate = proj.effectiveDueDate;
 
-                        projDate.setHours(time[0]);
-                        projDate.setMinutes(time[1]);
-                        projDate.setSeconds(time[2]);
+                        projDate.setHours(time[0], time[1], time[2]);
 
                         proj.deferDate = projDate;
 

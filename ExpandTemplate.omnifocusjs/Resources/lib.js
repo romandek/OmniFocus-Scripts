@@ -54,12 +54,11 @@ var _ = function() {
 		switch (variable) {
 			case '${Date}' : {
 				var options = {
-					weekday: 'short',
 					year: 'numeric',
 					month: 'short',
 					day: 'numeric'
 				};
-				return new Date().toLocaleDateString('en-UK', options);
+				return new Date().toLocaleDateString('en-LT', options);
 			}
 			case '${Time}' : {
 				var options = {
@@ -67,7 +66,7 @@ var _ = function() {
 					minute: '2-digit',
 					hour12: false
 				};
-				return new Date().toLocaleTimeString('en-UK', options);
+				return new Date().toLocaleTimeString('en-LT', options);
 			}
 			default:
 				return null;
@@ -186,7 +185,9 @@ var _ = function() {
 			lib.adjustDates(task, form.values['deadline'], origProjDue);
 		});
 
-		project.removeTags([tagNamed('Template')]); 
+		project.removeTags([tagNamed('Template')]);
+
+		project.dueDate = lib.setDefaultTime(DateKind.DUE, new Date(form.values['deadline']));
 
 		// Open the new project
 		var url = URL.fromString('omnifocus:///task/' + encodeURIComponent(project.name));
@@ -204,24 +205,24 @@ var _ = function() {
 
 		var dc = new DateComponents(); dc.day = 7;
         var cal = Calendar.current;
-        var time = settings.objectForKey("DefaultDueTime").split(":").map(e => { return parseInt(e)})
+        //var time = settings.objectForKey("DefaultDueTime").split(":").map(e => { return parseInt(e)})
         var defaultDeadline = cal.dateByAddingDateComponents(new Date(), dc);        
             defaultDeadline = lib.setDefaultTime(DateKind.DUE, defaultDeadline);
-
 
         var deadlineField = new Form.Field.Date(
             "deadline",
             "Deadline",
-            defaultDeadline/*,
-            new Formatter.Date.withStyle(Formatter.Date.Style.Short)*/
+            defaultDeadline,
+            Formatter.Date.withStyle(Formatter.Date.Style.Medium, null) //, Formatter.Date.Style.Short)
         )
 
         inputForm.addField(deadlineField);
 
 		for (var i = 0; i < templateVariables.length; i++) {
 			var variable = templateVariables[i];
+			var variableName = variable.substring(2, variable.length - 1)
 			var defaultValue = lib.GetDefaultValueForVariable(variable);
-			inputForm.addField(new Form.Field.String(variable, variable, defaultValue), i);
+			inputForm.addField(new Form.Field.String(variable, variableName, defaultValue), i);
 		}
 		var formPrompt = "Provide values for the template";
 		var buttonTitle = "OK";

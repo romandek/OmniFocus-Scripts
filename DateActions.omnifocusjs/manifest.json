@@ -12,6 +12,18 @@
         "identifier": "deferTomorrow"
     },
     {
+        "image": "morning.png",
+        "identifier": "morning"
+    },
+    {
+        "image": "noon.png",
+        "identifier": "noon"
+    },
+    {
+        "image": "evening.png",
+        "identifier": "evening"
+    },
+    {
         "image": "deferBeforeDue.png",
         "identifier": "deferBeforeDue"
     },

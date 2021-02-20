@@ -26,22 +26,20 @@ var _ = function(){
             var dayFieldValue = formObject.values["dayField"]
             days = parseInt(dayFieldValue)
 
-            var defaultTime = settings.objectForKey("DefaultStartTime")
-            var time = defaultTime.split(":")
-
-
+            //var defaultTime = settings.objectForKey("DefaultStartTime")
+            //var time = defaultTime.split(":")
 
             if(selection.tasks[0])
             {   
                 selection.tasks.forEach(task => {
 
-                    const deferDate = task.effectiveDueDate;
+                    var deferDate = task.effectiveDueDate;
                           
                     deferDate.setDate(-days + deferDate.getDate())
 
-                    deferDate.setHours(parseInt(time[0]))
-                    deferDate.setMinutes(parseInt(time[1]))
-                    deferDate.setSeconds(parseInt(time[2]))
+                    //deferDate.setHours(parseInt(time[0]))
+                    //deferDate.setMinutes(parseInt(time[1]))
+                    //deferDate.setSeconds(parseInt(time[2]))
                     
                     task.deferDate = deferDate;
                 })
@@ -51,13 +49,13 @@ var _ = function(){
             {   
                 selection.projects.forEach(proj => {
 
-                    const deferDate = proj.effectiveDueDate;
+                    var deferDate = proj.effectiveDueDate;
                           
                     deferDate.setDate(-days + deferDate.getDate())
 
-                    deferDate.setHours(parseInt(time[0]))
-                    deferDate.setMinutes(parseInt(time[1]))
-                    deferDate.setSeconds(parseInt(time[2]))
+                    //deferDate.setHours(parseInt(time[0]))
+                    //deferDate.setMinutes(parseInt(time[1]))
+                    //deferDate.setSeconds(parseInt(time[2]))
                     
                     proj.deferDate = deferDate;
                 })

@@ -22,6 +22,10 @@
     {
         "image": "four.png",
         "identifier": "p4"
+    },
+    {
+        "image": "consider.png",
+        "identifier": "consider"
     }],
     "defaultLocale": "en"
 }
