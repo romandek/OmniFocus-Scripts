@@ -14,8 +14,8 @@ var _ = function(){
 
                 taskDate = new Date();
 
-            	if (task.deferDate) {
-            		taskDate.setHours(task.deferDate.getHours(), task.deferDate.getMinutes());
+            	if (task.effectiveDeferDate) {
+            		taskDate.setHours(task.effectiveDeferDate.getHours(), task.effectiveDeferDate.getMinutes(), 0);
             	}
             	else {
             		taskDate.setHours(time[0], time[1], time[2]);
@@ -37,7 +37,7 @@ var _ = function(){
                     console.log("Task’s “" + task + "” proposed defer date is after the task's due date. Defer date set to morning default defer time on the due date");
                 }
             });
-        } 
+        } //tasks
 
         if (selection.projects[0]) {
 
@@ -45,8 +45,8 @@ var _ = function(){
 
                 projDate = new Date();
 
-                if (proj.deferDate) {
-            		projDate.setHours(proj.deferDate.getHours(), proj.deferDate.getMinutes());
+                if (proj.effectiveDeferDate) {
+            		projDate.setHours(proj.effectiveDeferDate.getHours(), proj.effectiveDeferDate.getMinutes(), 0);
             	}
             	else {
 
@@ -71,7 +71,7 @@ var _ = function(){
                     console.log("Project’s “" + proj + "” proposed defer date is after the project’s due date. Defer date set to morning default defer time on the due date");
                 }
             });
-        }
+        } //projects
 
         cleanUp();
     });

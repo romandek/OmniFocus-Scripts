@@ -32,9 +32,13 @@
         "identifier": "dueTomorrow"
     },
     {
-        "image": "due.png",
-        "identifier": "due"
-    }, 
+        "image": "dueDays.png",
+        "identifier": "dueDays"
+    },
+    {
+        "image": "shiftDays.png",
+        "identifier": "shiftDays"
+    },  
     {
         "image": "reviewDateAtDefer.png",
         "identifier": "reviewDateAtDefer"

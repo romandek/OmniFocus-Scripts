@@ -24,6 +24,8 @@ var _ = function(){
         if(selection.projects[0]) {
             selection.projects.forEach(proj => proj.dueDate = targetDate)
         }
+
+        cleanUp();
     
     });
 

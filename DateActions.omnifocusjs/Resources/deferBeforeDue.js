@@ -60,6 +60,8 @@ var _ = function(){
                     proj.deferDate = deferDate;
                 })
             }
+
+            cleanUp();
         })
     });
         

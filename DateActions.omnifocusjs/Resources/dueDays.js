@@ -88,6 +88,8 @@ var _ = function(){
                     proj.dueDate = projDate
                 });
             }
+
+            cleanUp();
         })
     
     });

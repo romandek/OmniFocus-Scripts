@@ -39,18 +39,12 @@ var _ = function(){
 
                 selection.tasks.forEach((task) => {
 
-                    if (task.deferDate) {
-                        taskDate = shouldRespectSetDates ? task.effectiveDeferDate : (new Date());
+                    taskDate = new Date();
 
-                        if (taskDate == null) {
-                            taskDate = new Date();
-                        }
-
-                        taskDate.setHours(task.deferDate.getHours(), task.deferDate.getMinutes());
+                    if (task.effectiveDeferDate) {
+                        taskDate.setHours(task.effectiveDeferDate.getHours(), task.effectiveDeferDate.getMinutes(), 0);
                     }
                     else {
-
-                        taskDate = new Date();
                         taskDate.setHours(time[0], time[1], time[2]);
                     }
 
@@ -71,20 +65,16 @@ var _ = function(){
                     }
                     
                 });
-            } 
+            } //tasks
 
             if (selection.projects[0]) {
 
                 selection.projects.forEach((proj) => {
 
-                    if (proj.deferDate) {
-                        projDate = shouldRespectSetDates ? proj.effectiveDeferDate : (new Date());
+                    projDate = new Date();
 
-                        if (projDate == null) {
-                            projDate = new Date();
-                        }
-
-                        projDate.setHours(proj.deferDate.getHours(), proj.deferDate.getMinutes());
+                    if (proj.effectiveDeferDate) {
+                        projDate.setHours(proj.effectiveDeferDate.getHours(), proj.effectiveDeferDate.getMinutes(), 0);
                     }
                     else {
 
@@ -93,7 +83,6 @@ var _ = function(){
                     }
 
                     projDate.setDate(days + projDate.getDate());
-
 
                     if (proj.effectiveDueDate === null || projDate <= proj.effectiveDueDate) {
                         proj.deferDate = projDate;
@@ -109,8 +98,10 @@ var _ = function(){
                         console.log("Project’s “" + proj + "” proposed defer date is after the project’s due date. Defer date set to morning default defer time on the due date");
                     }
                 });
-            }
-        })
+            } //projects
+
+            cleanUp();
+        }) //promise
     });
 
     action.validate = selection => {

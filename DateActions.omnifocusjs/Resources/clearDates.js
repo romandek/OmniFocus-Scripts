@@ -16,6 +16,8 @@ var _ = function(){
                 proj.dueDate = null
             })
         }
+
+        cleanUp();
     
     });
 
