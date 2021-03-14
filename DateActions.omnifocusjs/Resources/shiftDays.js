@@ -116,7 +116,9 @@ var _ = function(){
                     deferDate.setDate(days + deferDate.getDate())
                     dueDate.setDate(days + dueDate.getDate())
 
-                    if (proj.containingProject.dueDate === null || deferDate <= proj.containingProject.dueDate) {
+                    proj.dueDate = dueDate
+
+                    if (deferDate <= proj.dueDate) {
                         proj.deferDate = deferDate
                     }
                     else {
@@ -130,19 +132,6 @@ var _ = function(){
                         console.log("Project’s “" + proj + "” proposed defer date is after the sparent's due date. Defer date set to the parent's due date")
                     }
 
-                    if (proj.containingProject.dueDate === null || dueDate <= proj.containingProject.dueDate) {
-                        proj.dueDate = dueDate
-                    }
-                    else {
-
-                        dueDate = proj.effectiveDueDate;
-
-                        dueDate.setHours(defaultDueTime[0], defaultDueTime[1], defaultDueTime[2]);
-
-                        proj.dueDate = dueDate;
-
-                        console.log("Project’s “" + proj + "” proposed due date is after the parent's due date. Due date set to the parent's due date")
-                    }
                 });//foreach
             } //projects
 

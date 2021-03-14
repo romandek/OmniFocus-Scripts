@@ -1,13 +1,3 @@
-/*{
-	"type": "action",
-	"targets": ["omnifocus"],
-	"author": "Otto Automator",
-	"identifier": "com.omni-automation.of.move-selected-projects-into-folder",
-	"version": "1.7",
-	"description": "Move the selected projects into a new top-level folder.",
-	"label": "Move into New Folder",
-	"shortLabel": "Move Projects"
-}*/
 (() => {
 	var action = new PlugIn.Action(function(selection, sender){
 		// selection options: tasks, projects, folders, tags

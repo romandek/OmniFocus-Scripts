@@ -1,0 +1,35 @@
+{
+    "author": "Roman Dek",
+    "identifier": "com.romandek.of.actions",
+    "version": "1.0",
+    "description": "Collection of actions for tasks and projects",
+    "actions": [{
+        "image": "drop.png",
+        "identifier": "drop"
+    },
+    {
+        "image": "complete_and_schedule_next.png",
+        "identifier": "complete_and_schedule_next"
+    },
+    {
+        "image": "complete_and_followup.png",
+        "identifier": "complete_and_followup"
+    },
+    {
+        "image": "duplicate_tasks.png",
+        "identifier": "duplicate_tasks"
+    },
+    {
+        "image": "move_into_folder.png",
+        "identifier": "move_into_folder"
+    },
+    {
+        "image": "task_to_project.png",
+        "identifier": "task_to_project"
+    },
+    {
+        "image": "wrap_tasks.png",
+        "identifier": "wrap_tasks"
+    }],
+    "defaultLocale": "en"
+}
